@@ -7,8 +7,8 @@ The objective of this project is to see if a double-jointed arm can move to targ
 We will be using the enviornment that has 20 identical arms
 
 ## Environment Details
-* State Space - state space has 33 dimensions and contains the agent's velocity, along with ray-based perception of objects around the agent's forward direction.
-* Action Space - the agent has 4 continous actions per arm with a range from -1 to 1
+* State Space - state space has 33 variables corresponding to position, rotation, velocity, and angular velocities of the arm.
+* Action Space - the agent has 4 continous actions (corresponding to torque applicable to two joints) per arm with a range from -1 to 1
 
 <br> When the agents achieve an average score of +30 over 100 consecutive episodes, and over all agents the objective is met.
 
@@ -19,7 +19,7 @@ https://www.anaconda.com/
 
 Step2:
 Follow the instructions to setup the environment for you system (window, mac, etc.)
-https://github.com/udacity/Value-based-methods#dependencies
+https://github.com/udacity/deep-reinforcement-learning.git
 
 Step3:
 Clone my project repo
