@@ -23,22 +23,19 @@ An infinite number of hyperparameter combinations can be used in this problem.  
 8. the buffer size for the replay
 9. the gamma rate for the discount factor
 
-To limit the number of experiments, we will change only the following:
-1. number of hidden layers in the neural network
-2. number of nodes in each layer in the neural network
-3. decay rate of epsilon.
+Based on trial and error the following were used
 
 The following Hyperparameters are kept fixed:
-BUFFER_SIZE = int(1e5)   replay buffer size \
-BATCH_SIZE = 64          minibatch size \
-GAMMA = 0.99             discount factor \
-TAU = 1e-3               for soft update of target parameters \
-LR = 5e-4                learning rate \
-UPDATE_EVERY = 4         how often to update the network \
+BUFFER_SIZE = int(1e6)  # replay buffer size
+BATCH_SIZE = 512 #128        # minibatch size
+GAMMA = 0.925            # discount factor
+TAU = 1e-3              # for soft update of target parameters
+LR_ACTOR = 1e-4         # learning rate of the actor 
+LR_CRITIC = 1e-4        # learning rate of the critic, this was lowered from 3e-4 and learning improved
+WEIGHT_DECAY = 0.0000   # L2 weight decay, this was lowered from 0.0001 and lerning improved
 n_episodes=2000		 maximum number of episodes \
-max_t=1000		 maximum number of timesteps per episode \
-eps_start=1.0		 Starting Epsilon for the epsilon greedy policy \
-eps_end=0.01		 Starting Epsilon for the epsilon greedy policy
+max_t=1000		 maximum number of timesteps per episode, this was increased from 700 \ 
+
 
 
 
@@ -48,7 +45,8 @@ The following Algorithm was tested.
  
 ## DDPG
 ### Learning Algorithm
-The baseline model is the Deep Q network.  Where the states are inputs to a neural network that outputs the actions and Q-values.  Two identical networks are used, one target and one local.  The network tries to minimize the squared difference between the output Q values and the target Q values.  Then back propagation updates the weights and biases.  
+We use DDPG to solve controlled tasks with continuous action spaces.  The number of valid actions is infinite, so it is impossible to find the highest Q value.  To solve DDPG assume the $Q(s,a(s))$ is differentiable with respect to $a(s)$.  
+
 
 ### Model Architectures
 The neural network architecture is a simple feed forward neural network:  
