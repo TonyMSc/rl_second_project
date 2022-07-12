@@ -18,14 +18,18 @@ Install Anaconda distribution at:
 https://www.anaconda.com/
 
 Step2:
-Follow the instructions to setup the environment for you system (window, mac, etc.)
+Follow the instructions to setup the environment for you system (window, mac, etc.) \
 https://github.com/udacity/deep-reinforcement-learning.git
 
 Step3:
+After the virtual enviornment has been installed follow the instuctions for setting up the enviorment
+https://github.com/udacity/deep-reinforcement-learning/tree/master/p2_continuous-control
+
+Step4:
 Clone my project repo
 
 ```bash
-git clone https://github.com/TonyMSc/rl_first_project.git
+[git clone https://github.com/TonyMSc/rl_first_project.git](https://github.com/TonyMSc/rl_second_project.git)
 ```
 
 Step4:
