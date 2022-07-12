@@ -1,5 +1,5 @@
 # Background
-The objective of this project is to see if a double-jointed arm can move to target6 locations. A reward of +0.1 is provid6ed for each step that the agent's hand is in the goal location. We want the agent to maintain its position at the target location for as many time steps as possible.
+The objective of this project is to see if a double-jointed arm can move to target locations. A reward of +0.1 is provid6ed for each step that the agent's hand is in the goal location. We want the agent to maintain its position at the target location for as many time steps as possible.
 
 We will be using the enviornment that has 20 identical arms
 
