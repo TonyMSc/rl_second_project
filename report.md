@@ -45,58 +45,29 @@ The following Algorithm was tested.
  
 ## DDPG
 ### Learning Algorithm
-We use DDPG to solve controlled tasks with continuous action spaces.  The number of valid actions is infinite, so it is impossible to find the highest Q value.  To solve DDPG assume the $Q(s,a(s))$ is differentiable with respect to $a(s)$.  
+We use DDPG to solve controlled tasks with continuous action spaces.  The number of valid actions is infinite, so it would be extreemly difficult to find the highest Q value.  To solve DDPG assume the $Q(s,a(s))$ is differentiable with respect to $a(s)$.  The policy will be represented by a neural network
 
+We optimize with two neural networks (one for the policy and one for the Q values), we select an action in a specific state and use a 2nd neural network to compute the Q value of that state and action.  We compute the value of the action selected by the policy, and move the parameters of the policy in the direction of the maximum value increase (ie. The gradient).  Instead of an epsilon greedy, we add some gaussian noise to the policy. 
 
 ### Model Architectures
 The neural network architecture is a simple feed forward neural network:  
-1. The inputs are the state size (for this problem it is a state space of 37)
+1. The inputs are the state size (for this problem it is a state space of 33)
 2. The hidden layer consists of several fully connected linear layers with a relu activation function
-3. The output is the number of actions we can take in the environment (for this problem the agent can take 4 actions)
-4. The optimizer for this network is Adam with a learning rate of 5e-4
+3. The output is the number of actions we can take in the environment (for this problem the agent can take 4 actions in a con)
+4. The optimizer for this network is Adam with a learning rate of 1e-4
 5. The loss function to minimize is the mean squared error of the $Q_{expected}$ and the $Q_{target}$
-## Double Deep Q
-### Learning Algorithm
-In Double Deep Q learning we use two identical neural network models to mitigate the overestimation of the action value function problem in DQN. Two neural network models are now used to build the target.  The online network is used to get the index of the highest-valued action of the next state, then the target network gets the Q_values of the next state from the action of the online network.
+ 
 
-One DQN is used to select the action \
-$a_{t+1}^{\star} := argmax Q_{1}(s_{t+1},a_{t+1})$ \
-A second DQN evaluates it \
-$R + \gamma Q_{2}(s_{t+1}, a^{\star}_{t+1})$ 
 
-### Model Architectures
-The neural network does not change from the DQN, but the training process to create the target is split over two identical neural networks (one to select the action, the other to estimate the value), this helps increase stability.  
-## Dueling Deep Q
-### Learning Algorithm
-The Dueling Deep Q does not change the training process, the changes are in the neural network output layer. The output is split into two parts: state and the advantage
-
-$Q_{\pi}(s, a) := V_{\pi}(s) + A_{\pi}(s, a)$ \
-where \
-$Q_{\pi}(s, a)$ is the expected return selecting action a using policy $\pi$ \
-$V_{\pi}(s)$ The value of a state is the expected return using policy $\pi$ \
-$A_{\pi}(s, a)$ The advantage is the excess expected return of action a above the value of state \
-Or written another way: \
-$A_{\pi}(s, a) : = Q_{\pi}(s, a) - V_{\pi}(s)$ 
-		
-### Model Architectures
-The model architecture changes from a neural network that estimates the Q values for each action (first model) to a neural network that computes the value of a state and the advantages separately (second model).  The separate values are then added together to create the Q value estimates.  This should make the training process faster.
-![](images/dueling_dqn.png)
-## Prioritized Experience Replay
-To make the replay buffer for efficient (currently it uses a uniform distribution), we experiment with a Prioritized Experience Replay.  Each experience will be assigned a probability from 0 to 1.  The higher the priority of an experience, the higher the probability it will get picked from the buffer.   
-We assign the probability as follows
-$P(i) := \frac{p_{i}^{a}}{\sum_{k}p_{k}^{a}}$ with alpha (a) regulating the priority (alpha at zero would assign a uniform distribution).
-We start with alpha at 1 and slowly reduce it toward zero as training progresses.
-We choose priority based on the largest temporal difference error.
 
 # Plot of Rewards from Experiments
 Results from the experiments are as follows: \
 # Analysis of results
-Holding the same hyperparameters constant, Double DQN and Dueling DQN did achieve the goal with fewer episodes than DQN.  Prioritized experience replay seems to increase the number of episodes to reach the goal of an average score of 13.  This may be due to the small problem size and limited states.  Prioritized experience replay may be more useful in a larger more complex problem. \
-Adding complexity to the model (additional layers and nodes) made a noticeable difference in performance.  Additional layers and nodes would increase the score early in training vs. a simpler model and reach the goal with fewer episodes.  However, based on the graph it does look like a more complex model has more oscillation between episodes vs. a simpler model that has a more linear trend upward.
+
 
 # Ideas for Future Work
 **Neural Net Architecture**-Possibly use a CNN layer with the feed forward neural net to help identify colors.  Experiment with different number of layers and neuron combinations.  
-**Aditional Expdriments**-Experiment with a Dueling DDQN and other extensions of the DQN such as: 
+**Aditional Expdriments**-The following could also be used: 
 1. Distributional DQN 
 2. Noisy DQN 
 3. Prioritized DDQN
