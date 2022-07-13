@@ -70,7 +70,8 @@ This problem seemed very sensitive to changes in hyperparameters.  Lowering the 
 
 # Ideas for Future Work
 **Neural Net Architecture**-Possibly use a CNN layer with the feed forward neural net to help identify colors.  Experiment with different number of layers and neuron combinations.  
-**Aditional Expdriments**-The following could also be used: 
-1. Distributional DQN 
-2. Noisy DQN 
-3. Prioritized DDQN
+**Aditional Experiments**-The following could also be used: 
+1. PPO
+2. A3C
+3. D4PG
+4. Twin Delayed DDPG
