@@ -34,7 +34,7 @@ LR_ACTOR = 1e-4         # learning rate of the actor \
 LR_CRITIC = 1e-4        # learning rate of the critic, this was lowered from 3e-4 and learning improved \
 WEIGHT_DECAY = 0.0000   # L2 weight decay, this was lowered from 0.0001 and lerning improved \
 n_episodes=2000		 maximum number of episodes \
-max_t=1000		 maximum number of timesteps per episode, this was increased from 700 \ 
+max_t=1000		 maximum number of timesteps per episode, this was increased from 700 
 
 
 
