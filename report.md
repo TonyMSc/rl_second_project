@@ -11,17 +11,6 @@ The state space consists of 33 variables corresponding to position, rotation, ve
 Solved is defined as the agent is able to receive an average reward (over 100 episodes, and over all 20 agents) of at least +30.
 Training for this model is very long and slow.
 
-Steps
-1.	Initialize the neural network that will estimate the Q values given a state and an action (the critic network) $Q(s,a|\theta^{Q})$ and the neural network that will take the action (the actor) $\mu(s|\theta^{\mu})$
-2.	Initialize the target networks
-3.	Create a replay buffer
-4.	For a given episodes we take the observation of the environment and select and action from the policy and apply some random noise (instead of the greedy epsilon policy).  The action is taken in the environment and receive information about the reward and the next state, which is then stored in the replay buffer
-5.	We select a mini batch of samples from the replay buffer and update the neural networks by computing the targets and computing the mse of the loss function and updating the weights by stochastic gradient descent 
-6.	We update the policy by taking the action selected by the policy at each time step and computing the Q value of that state action pair using the Q Network to get an estimate of the performance
-7.	Then apply stochastic gradient ascent to move the policy in the direction of higher growth
-8.	The target networks are updated by using a certain percentage from the main network and a certain percentage from the target network.  We use Tau for that percentage split. 
-
-
 ### Model Hyperparameters
 An infinite number of hyperparameter combinations can be used in this problem.  Including:
 1. number of hidden layers in the neural network
@@ -60,6 +49,16 @@ We use DDPG to solve controlled tasks with continuous action spaces.  The number
 
 We optimize with two neural networks (one for the policy and one for the Q values), we select an action in a specific state and use a 2nd neural network to compute the Q value of that state and action.  We compute the value of the action selected by the policy, and move the parameters of the policy in the direction of the maximum value increase (ie. The gradient).  Instead of an epsilon greedy, we add some gaussian noise to the policy. 
 
+Steps
+1.	Initialize the neural network that will estimate the Q values given a state and an action (the critic network) $Q(s,a|\theta^{Q})$ and the neural network that will take the action (the actor) $\mu(s|\theta^{\mu})$
+2.	Initialize the target networks
+3.	Create a replay buffer
+4.	For a given episodes we take the observation of the environment and select and action from the policy and apply some random noise (instead of the greedy epsilon policy).  The action is taken in the environment and receive information about the reward and the next state, which is then stored in the replay buffer
+5.	We select a mini batch of samples from the replay buffer and update the neural networks by computing the targets and computing the mse of the loss function and updating the weights by stochastic gradient descent 
+6.	We update the policy by taking the action selected by the policy at each time step and computing the Q value of that state action pair using the Q Network to get an estimate of the performance
+7.	Then apply stochastic gradient ascent to move the policy in the direction of higher growth
+8.	The target networks are updated by using a certain percentage from the main network and a certain percentage from the target network.  We use Tau for that percentage split. 
+
 ### Model Architectures
 The neural network architecture is a simple feed forward neural network:  
 1. The inputs are the state size (for this problem it is a state space of 33)
@@ -76,7 +75,7 @@ Results from the experiments are as follows: \
 # Analysis of results
 It was a surprise that the 20-arm model trained much faster than the one arm model.  However, if you look at it from a perspective of an ensemble method, then the more agents’ experiences to learn from the faster the neural net would learn and converge.  
 
-This problem seemed very sensitive to changes in hyperparameters.  Lowering the learning rate and adding batch normalization improved performance.  When first training the model, it was difficult to get an average reward over 1.  After changing some hyperparameters and experimenting with different combinations of layers and nodes, training improved (but was very slow).
+This problem seemed very sensitive to changes in hyperparameters.  Lowering the learning rate and adding batch normalization improved performance.  When first training the model, it was difficult to get an average reward over 1.  After changing some hyperparameters and experimenting with different combinations of layers and nodes, training improved (but was very slow even with a gpu).
 
 
 # Ideas for Future Work
