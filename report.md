@@ -53,7 +53,7 @@ We optimize with two neural networks (one for the policy and one for the Q value
 The neural network architecture is a simple feed forward neural network:  
 1. The inputs are the state size (for this problem it is a state space of 33)
 2. The hidden layer consists of several fully connected linear layers with a relu activation function
-3. The output is the number of actions we can take in the environment (for this problem the agent can take 4 actions in a con)
+3. The output is the number of actions we can take in the environment (for this problem the agent can take 4 actions in a continuous space from -1 to 1)
 4. The optimizer for this network is Adam with a learning rate of 1e-4
 5. The loss function to minimize is the mean squared error of the $Q_{expected}$ and the $Q_{target}$
  
