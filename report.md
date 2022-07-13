@@ -60,15 +60,13 @@ Steps
 8.	The target networks are updated by using a certain percentage from the main network and a certain percentage from the target network.  We use Tau for that percentage split. 
 
 ### Model Architectures
-The neural network architecture is a simple feed forward neural network:  
+The neural network architecture is a simple feed forward neural network (one for the Actor and one for the Critic):  
 1. The inputs are the state size (for this problem it is a state space of 33)
-2. The hidden layer consists of several fully connected linear layers with a relu activation function
-3. The output is the number of actions we can take in the environment (for this problem the agent can take 4 actions in a continuous space from -1 to 1)
+2. The hidden layer consists of several fully connected linear layers with a relu activation function 
+3. The output is the number of actions (or one vaue for the critic) we can take in the environment (for this problem the agent can take 4 actions in a continuous space from -1 to 1 for the Actor and 1 value from the Critic)
 4. The optimizer for this network is Adam with a learning rate of 1e-4
-5. The loss function to minimize is the mean squared error of the $Q_{expected}$ and the $Q_{target}$
+5. The Critic loss function to minimize is the mean squared error of the $Q_{expected}$ and the $Q_{target}$
  
-
-
 
 # Plot of Rewards from Experiments
 Results from the experiments are as follows: \
