@@ -63,6 +63,9 @@ The neural network architecture is a simple feed forward neural network:
 # Plot of Rewards from Experiments
 Results from the experiments are as follows: \
 # Analysis of results
+It was a surprise that the 20-arm model trained much faster than the one arm model.  However, if you look at it from a perspective of an ensemble method, then the more agents’ experiences to learn from the faster the neural net would learn and converge.  
+
+This problem seemed very sensitive to changes in hyperparameters.  Lowering the learning rate and adding batch normalization improved performance.  When first training the model, it was difficult to get an average reward over 1.  After changing some hyperparameters and experimenting with different combinations of layers and nodes, training improved (but was very slow).
 
 
 # Ideas for Future Work
