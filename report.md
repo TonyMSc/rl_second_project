@@ -11,6 +11,17 @@ The state space consists of 33 variables corresponding to position, rotation, ve
 Solved is defined as the agent is able to receive an average reward (over 100 episodes, and over all 20 agents) of at least +30.
 Training for this model is very long and slow.
 
+Steps
+1.	Initialize the neural network that will estimate the Q values given a state and an action (the critic network) $Q(s,a|\theta^{Q})$ and the neural network that will take the action (the actor) $\mu(s|\theta^{\mu})$
+2.	Initialize the target networks
+3.	Create a replay buffer
+4.	For a given episodes we take the observation of the environment and select and action from the policy and apply some random noise (instead of the greedy epsilon policy).  The action is taken in the environment and receive information about the reward and the next state, which is then stored in the replay buffer
+5.	We select a mini batch of samples from the replay buffer and update the neural networks by computing the targets and computing the mse of the loss function and updating the weights by stochastic gradient descent 
+6.	We update the policy by taking the action selected by the policy at each time step and computing the Q value of that state action pair using the Q Network to get an estimate of the performance
+7.	Then apply stochastic gradient ascent to move the policy in the direction of higher growth
+8.	The target networks are updated by using a certain percentage from the main network and a certain percentage from the target network.  We use Tau for that percentage split. 
+
+
 ### Model Hyperparameters
 An infinite number of hyperparameter combinations can be used in this problem.  Including:
 1. number of hidden layers in the neural network
