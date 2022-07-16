@@ -45,7 +45,7 @@ The following Algorithm was tested.
  
 ## DDPG
 ### Learning Algorithm
-We use DDPG to solve controlled tasks with continuous action spaces.  The number of valid actions is infinite, so it would be extreemly difficult to find the highest Q value.  To solve DDPG assume the $Q(s,a(s))$ is differentiable with respect to $a(s)$.  The policy will be represented by a neural network
+We use DDPG to solve controlled tasks with continuous action spaces.  The number of valid actions is infinite, so it would be extremely difficult to find the highest Q value.  To solve DDPG assume the $Q(s,a(s))$ is differentiable with respect to $a(s)$.  The policy will be represented by a neural network
 
 We optimize with two neural networks (one for the policy and one for the Q values), we select an action in a specific state and use a 2nd neural network to compute the Q value of that state and action.  We compute the value of the action selected by the policy, and move the parameters of the policy in the direction of the maximum value increase (ie. The gradient).  Instead of an epsilon greedy, we add some gaussian noise to the policy. 
 
@@ -63,17 +63,19 @@ Steps
 The neural network architecture is a simple feed forward neural network (one for the Actor and one for the Critic):  
 1. The inputs are the state size (for this problem it is a state space of 33)
 2. The hidden layer consists of several fully connected linear layers with a relu activation function 
-3. The output is the number of actions (or one vaue for the critic) we can take in the environment (for this problem the agent can take 4 actions in a continuous space from -1 to 1 for the Actor and 1 value from the Critic)
+3. The output is the number of actions (or one value for the critic) we can take in the environment (for this problem the agent can take 4 actions in a continuous space from -1 to 1 for the Actor and 1 value from the Critic)
 4. The optimizer for this network is Adam with a learning rate of 1e-4
 5. The Critic loss function to minimize is the mean squared error of the $Q_{expected}$ and the $Q_{target}$
  
 
 # Plot of Rewards from Experiments
 Results from the experiments are as follows: \
-# Analysis of results
+# Analysis of results 
 It was a surprise that the 20-arm model trained much faster than the one arm model.  However, if you look at it from a perspective of an ensemble method, then the more agents’ experiences to learn from the faster the neural net would learn and converge.  
 
 This problem seemed very sensitive to changes in hyperparameters.  Lowering the learning rate and adding batch normalization improved performance.  When first training the model, it was difficult to get an average reward over 1.  After changing some hyperparameters and experimenting with different combinations of layers and nodes, training improved (but was very slow even with a gpu).
+
+The first model the learning rate was set too low.  The increase was consistent, but training on a cpu took 4 days and after 100 episodes, the score started to decrease.  
 
 
 # Ideas for Future Work
