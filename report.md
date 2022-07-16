@@ -87,7 +87,8 @@ This problem seemed very sensitive to changes in hyperparameters.  Lowering the 
 The first model the learning rate was set too low.  The increase was consistent, but training on a cpu took 4 days and after 140 episodes, the score started to decrease.  
 ![](images/proj2exp1.png)
 
-
+The second attempt did much better when we changed the learning rate for the critic, reduced the number of nodes per layer in the neural net, and changed the noise to a normal distribution.
+![](images/proj2exp2.png)
 # Ideas for Future Work
 **Neural Net Architecture**-Possibly use a CNN layer with the feed forward neural net to help identify colors.  Experiment with different number of layers and neuron combinations.  
 **Aditional Experiments**-The following could also be used: 
