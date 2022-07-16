@@ -76,6 +76,7 @@ It was a surprise that the 20-arm model trained much faster than the one arm mod
 This problem seemed very sensitive to changes in hyperparameters.  Lowering the learning rate and adding batch normalization improved performance.  When first training the model, it was difficult to get an average reward over 1.  After changing some hyperparameters and experimenting with different combinations of layers and nodes, training improved (but was very slow even with a gpu).
 
 The first model the learning rate was set too low.  The increase was consistent, but training on a cpu took 4 days and after 100 episodes, the score started to decrease.  
+![](images/proj2exp1.png)
 
 
 # Ideas for Future Work
